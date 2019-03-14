@@ -6,19 +6,27 @@
 #    By: ccodiga <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/15 16:17:22 by ccodiga           #+#    #+#              #
-#    Updated: 2018/12/11 12:04:46 by ccodiga          ###   ########.fr        #
+#    Updated: 2019/03/14 08:59:45 by ccodiga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_ssl
-SRC = *.c
+NAME = ./ft_ssl
+
+SRC =	*.c
+
 OBJ = $(SRC:.c=.o)
-FLAGS = -g -Wall -Wextra -Werror
-LIB = libft/libft.a
+
+FLAGS = -Wall -Wextra -Werror
+
+MINISHELL_SRCS = $(addprefix srcs/,$(SRC))
+
+LIB = ./libft/libft.a
+
+INC= -I./includes
 
 $(NAME): $(LIB)
-	 @gcc $(FLAGS) -o $(NAME) $(SRC) $(LIB);
-	 @echo compiling ft_ssl
+	@gcc $(FLAGS) $(INC) $(MINISHELL_SRCS) $(LIB) -o $(NAME);
+	@echo compiling ft_ssl
 
 all: $(NAME)
 
@@ -31,6 +39,7 @@ clean:
 
 fclean: clean
 	@rm -rf $(NAME) libft/libft.a
+	@make fclean -C libft
 	@echo deleting libft.a and ft_ssl
 
 re: fclean all
